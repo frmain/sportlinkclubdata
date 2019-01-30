@@ -1,0 +1,32 @@
+{
+	"keywords" : [
+		"Sportlink",
+		"club.data",
+		"football"
+	],
+	"autoload" : {
+		"psr-4" : {
+			"SportlinkClubData\\" : "src"
+		}
+	},
+	"name" : "bruseboys/sportlinkclubdata",
+	"description" : "Wrapper API for Sportlink Club.Data",
+	"version" : "0.0.2",
+	"license" : "MIT",
+	"require" : {
+		"php" : ">=5.4",
+		"guzzlehttp/guzzle" : ">6.2.0",
+		"netresearch/jsonmapper" : "~1.0.0"
+	},
+	"authors" : [{
+			"name" : "Foeke Roukema",
+			"email" : "webmaster@bruseboys.nl",
+			"homepage" : "http://www.bruseboys.nl",
+			"role" : "developer"
+		}
+	],
+	"minimum-stability" : "dev",
+	"require-dev" : {
+		"phing/phing" : "~2.16"
+	}
+}
