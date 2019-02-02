@@ -39,6 +39,7 @@ $team = new Team($sportlink, 133473, -1);
 
 echo $team->teamnaam, "-", $team->geslacht,"-", $team->categorie, "<br/>";
 
+/*
 $match = new Match($sportlink, 10769519);
 echo "Match: ", $match->wedstijdnummerintern, "-", $match->wedstrijddatum->format('d-M-Y'),"-", $match->thuisteam, "-", $match->uitteam, 
 		"-", $match->thuisscore,":", $match->uitscore, "<br/>";
@@ -126,7 +127,7 @@ foreach ($sportlink->getTeams() as $k=>$team) {
 	}
 }
 
-
+*/
 
 /*
  foreach ($sportlink->getLeagues(true) as $poulecode=>$league) {

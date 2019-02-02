@@ -21,12 +21,21 @@
 	"authors" : [{
 			"name" : "Foeke Roukema",
 			"email" : "webmaster@bruseboys.nl",
-			"homepage" : "http://www.bruseboys.nl",
+			"homepage" : "https://www.bruseboys.nl",
 			"role" : "developer"
 		}
 	],
 	"minimum-stability" : "dev",
 	"require-dev" : {
 		"phing/phing" : "~2.16"
+	},
+	"support" : {
+		"email" : "info@bruseboys.nl"
+	},
+	"archive" : {
+		"exclude" : [
+			"/vendor",
+			"/test"
+		]
 	}
 }
