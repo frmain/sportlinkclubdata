@@ -40,7 +40,8 @@ class MatchStatistics extends ClubDataItem
 	 */
 	protected function populate()
 	{
-		$params['wedstrijdcode'] = $this->wedstrijdcode;
+	    $params = array();
+	    $params['wedstrijdcode'] = $this->wedstrijdcode;
 	
 		$response = $this->api->request('wedstrijd-statistieken', $params);
 	

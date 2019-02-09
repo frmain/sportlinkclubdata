@@ -195,7 +195,8 @@ class Match extends ClubDataItem
 	 */
 	protected function populate()
 	{
-		$params['wedstrijdcode'] = $this->wedstrijdnummerintern;
+	    $params = array();
+	    $params['wedstrijdcode'] = $this->wedstrijdnummerintern;
 	
 		$response = $this->api->request('wedstrijd-informatie', $params);
 	
@@ -323,6 +324,7 @@ class Match extends ClubDataItem
 			return $this->pastresults;
 		}
 		
+		$params = array();
 		$params['wedstrijdcode'] = $this->wedstijdnummerintern;
 		$response = $this->api->request('wedstrijd-historische-resultaten', $params);
 		

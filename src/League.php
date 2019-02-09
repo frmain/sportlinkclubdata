@@ -133,6 +133,7 @@ class League extends ClubDataItem
 			return $this->team;
 		}
 		
+		$data = array();
 		$data["teamnaam_full"]= $this->teamnaam;
 		$data["teamsoort"]= $this->teamsoort;
 		$data["spelsoort"]= $this->spelsoort;
@@ -154,7 +155,8 @@ class League extends ClubDataItem
 	 */
 	public function getMatchSchedule($onlyownteam=false, $daysahead=null, $weekoffset=null)
 	{
-		$params['poulecode'] = $this->poulecode;
+	    $params = array();
+	    $params['poulecode'] = $this->poulecode;
 		($onlyownteam) ? $params['eigenwedstrijden'] = 'JA' : $params['eigenwedstrijden'] = 'NEE';
 		if (isset($daysahead)) $params['aantaldagen'] = $daysahead; 
 		if (isset($weekoffset)) $params['weekoffset'] = $weekoffset;
@@ -181,7 +183,8 @@ class League extends ClubDataItem
 	 */
 	public function getMatchResults($onlyownteam=false, $daysahead=null, $weekoffset=null)
 	{
-		$params['poulecode'] = $this->poulecode;
+	    $params = array();
+	    $params['poulecode'] = $this->poulecode;
 		($onlyownteam) ? $params['eigenwedstrijden'] = 'JA' : $params['eigenwedstrijden'] = 'NEE';
 		if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
 		if (isset($weekoffset)) $params['weekoffset'] = $weekoffset;
@@ -209,6 +212,7 @@ class League extends ClubDataItem
 			return $this->ranking;
 		}
 		
+		$params = array();
 		$params['poulecode'] = $this->poulecode;
 		$response = $this->api->request('poulestand', $params);
 		
@@ -234,6 +238,7 @@ class League extends ClubDataItem
 			return $this->options_period;
 		}
 		
+		$params = array();
 		$params['poulecode'] = $this->poulecode;
 		$response = $this->api->request('keuzelijst-periodenummers', $params);
 		

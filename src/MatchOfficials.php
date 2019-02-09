@@ -59,6 +59,7 @@ class MatchOfficials extends ClubDataItem
 			return $this->officials;
 		}
 	
+		$params = array();
 		$params['wedstrijdcode'] = $this->wedstrijdcode;
 		$response = $this->api->request('wedstrijd-officials', $params);
 	

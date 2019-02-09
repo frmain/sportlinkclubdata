@@ -49,6 +49,7 @@ class MatchPlayers extends ClubDataItem
 			return $this->playershome;
 		}
 	
+		$params = array();
 		$params['wedstrijdcode'] = $this->wedstrijdcode;
 		if ($withphoto) $params['toonlidfoto'] = 'JA';
 		
@@ -76,6 +77,7 @@ class MatchPlayers extends ClubDataItem
 			return $this->playersaway;
 		}
 	
+		$params = array();
 		$params['wedstrijdcode'] = $this->wedstrijdcode;
 		if ($withphoto) $params['toonlidfoto'] = 'JA';
 		

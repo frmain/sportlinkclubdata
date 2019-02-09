@@ -78,7 +78,7 @@ class ClubData
 	/** @var Commission[]  */
 	protected $commissions = [];
 	
-/**
+    /**
 	 * @param string $key
 	 * @param HttpClientInterface $client
 	 */
@@ -242,7 +242,8 @@ class ClubData
 	public function getSchedule($daysahead=null, $weekoffset=null, $teamcode=null, $onlyownteam=false, $sortorder=null, $rowcount=null, $home=true, $away=true, $matchtype=null, 
 			$leaguetype=null, $daytype=null, $agecategory=null)
 	{
-		if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
+	    $params = array();
+	    if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
 		if (isset($weekoffset)) $params['weekoffset'] = $weekoffset;
 		if (isset($teamcode)) $params['teamcode'] = $teamcode;
 		$params['eigenwedstrijden'] = $onlyownteam ? 'JA' : 'NEE';
@@ -281,7 +282,8 @@ class ClubData
 	 */
 	public function getCancellations($daysahead=null, $weekoffset=null, $sortorder=null, $rowcount=null)
 	{
-		if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
+	    $params = array();
+	    if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
 		if (isset($weekoffset)) $params['weekoffset'] = $weekoffset;
 		if (isset($sortorder)) $params['sorteervolgorde'] = $sortorder;
 		if (isset($rowcount)) $params['aantalregels'] = $rowcount;
@@ -315,18 +317,18 @@ class ClubData
 	 * @return ClubMatchResult[]
 	 */
 	public function getResults($daysahead=null, $weekoffset=null, $teamcode=null, $localteamcode=null, $onlyownteam=false, $sortorder=null, $rowcount=null, 
-			$matchtype=null)
+			$matchtype=null, $agecategory=null)
 	{
-		if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
+	    $params = array();
+	    if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
 		if (isset($weekoffset)) $params['weekoffset'] = $weekoffset;
 		if (isset($teamcode)) $params['teamcode'] = $teamcode;
+		if (isset($localteamcode)) $params['lokaleteamcode'] = $teamcode;
 		$params['eigenwedstrijden'] = $onlyownteam ? 'JA' : 'NEE';
 		if (isset($sortorder)) $params['sorteervolgorde'] = $sortorder;
-		if (isset($matchtype)) $params['spelsoort'] = $matchtype;
-		if (isset($leaguetype)) $params['competitiesoort'] = $leaguetype;
-		if (isset($daytype)) $params['dagsoort'] = $daytype;
-		if (isset($agecategory)) $params['leeftijdscategorie'] = $agecategory;
 		if (isset($rowcount)) $params['aantalregels'] = $rowcount;
+		if (isset($matchtype)) $params['spelsoort'] = $matchtype;
+		if (isset($agecategory)) $params['leeftijdscategorie'] = $agecategory;
 		$params['gebruiklokaleteamgegevens'] = 'NEE';
 		
 		$response = $this->request('uitslagen', $params);

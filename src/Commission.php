@@ -58,6 +58,7 @@ class Commission extends ClubDataItem
 	 */
 	public function getMembers($withphoto=false)
 	{
+	    $params = array();
 	    $params['commissiecode'] = $this->commissiecode;
 	    if ($withphoto) $params['toonlidfoto'] = 'JA';
 	    

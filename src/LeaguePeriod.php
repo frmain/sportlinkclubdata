@@ -42,6 +42,7 @@ class LeaguePeriod extends ClubDataItem
 			return $this->ranking;
 		}
 	
+        $params = array();
 		$params['poulecode'] = $this->poulecode;
 		$params['periodenummer'] = $this->waarde;
 		$response = $this->api->request('periodestand', $params);

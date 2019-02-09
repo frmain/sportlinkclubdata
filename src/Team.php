@@ -180,7 +180,8 @@ class Team extends ClubDataItem
 	 */
 	public function populate()
 	{
-		$params['teamcode'] = $this->teamcode;
+	    $params = array();
+	    $params['teamcode'] = $this->teamcode;
 		$params['lokaleteamcode'] = $this->lokaleteamcode;
 		
 		$response = $this->api->request('team-gegevens', $params);
@@ -215,6 +216,7 @@ class Team extends ClubDataItem
 			return $this->leagues;
 		}
 	
+		$params = array();
 		$params['teamcode']=$this->teamcode;
 		$params['lokaleteamcode']=$this->lokaleteamcode;
 		$response = $this->api->request('teampoulelijst', $params);
@@ -257,6 +259,7 @@ class Team extends ClubDataItem
 			return $this->players;
 		}
 	
+		$params = array();
 		$params['teamcode']=$this->teamcode;
 		$params['lokaleteamcode']=$this->lokaleteamcode;
 		if ($withphoto) $params['toonlidfoto'] = 'JA';
