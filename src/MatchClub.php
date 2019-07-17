@@ -15,37 +15,37 @@ class MatchClub extends ClubDataItem
 	public $naam;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $code;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $website;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $shirtkleur;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $straat;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $postcodeplaats;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $telefoon;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $email;
 

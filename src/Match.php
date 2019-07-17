@@ -3,7 +3,8 @@ namespace SportlinkClubData;
 
 
 /**
- * @author Foeke
+ * Class with MatchDetails (wedstrijd-informatie) 
+ * 
  *
  */
 class Match extends ClubDataItem

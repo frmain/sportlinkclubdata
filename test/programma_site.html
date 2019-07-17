@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wedstrijdprogramma</title>
+<meta charset="utf-8" / >
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script> 
+<script type="text/javascript" src="autoscroll.js"></script>
+<script type="text/javascript" src="tv.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).ajaxStart(function(){
+		});
+		$(document).ajaxComplete(function(){
+		});
+		function getData(){
+			var target = $("#target");
+			if (!target) return false;
+			link = "http://localhost/bruseboys36/index.php?option=com_clubdata&task=display&format=raw&view=clubschedule&layout=tv&homeaway=home&daysahead=60";
+			if (!$.trim( $(target).html() ).length) {
+				$.ajax(
+							{url: link, 
+							type: "post",
+							dataType: "html",
+							async: true,
+								beforeSend: function(){
+											$("#clubloader").show();
+									},
+								complete: function(){
+											$("#clubloader").hide();
+											$("#clubdata-data").addClass('autoscroll');
+											$("#clubdata-data").css("max-height", $(window).height() - $("#clubdata-data").offset().top +"px");
+											$("#clubdata-data").scroller('{"delay" : 5000 , "amount" : 400}');
+											$(".clubdata-match-state").each(function() { matchCountDown($(this)); } );
+											setInterval(blink_text, 1000);
+									},
+							error: function (xhr, ajaxOptions, thrownError) {
+												$(target).html("An error occurred: " + xhr.status + ", " + thrownError);
+														console.log(xhr.status);
+														console.log(thrownError);
+														console.log(xhr.responseText);
+														console.log(xhr);
+									},
+							success: function(result){
+												$(target).html(result);
+									}
+							});
+			}
+		}
+		//get the data
+		getData();
+	})
+</script>
+
+<link href="https://www.bruseboys.nl/j33/media/com_clubdata/css/clubdata_tv.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+body {
+	background-color: transparent; 
+	font-family: verdana;
+	font-size:20px;
+	overflow-y: hidden;
+}
+
+.programma {
+	color: white;
+}
+.autoscroll {
+	max-height: 400px;
+	overflow-y: hidden;
+	
+}
+
+    </style>
+</style>
+
+</head>
+<body>
+<div id="target"
+></div> 
+
+<div id="clubloader" class="clubdata-loader-wrapper">
+	<div class="clubdata-loader"></div>
+</div>
+
+</body>
+</html>

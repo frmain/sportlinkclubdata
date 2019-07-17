@@ -3,7 +3,7 @@ namespace SportlinkClubData;
 
 
 /**
- * @author Foeke
+  * Class holding data of a match in a league  (poule-programma)
  *
  */
 class LeagueMatch extends ClubDataItem

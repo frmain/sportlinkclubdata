@@ -166,7 +166,7 @@ class League extends ClubDataItem
 		$matches = array();
 		foreach($response as $item){
 			$item['eigenteam'] = ($item['eigenteam'] == "true");
-			/** @var Match $match */
+			/** @var LeagueMatch $match */
 			$match = $this->api->map($item, new LeagueMatch($this->api));
 			$matches[$match->wedstrijdcode] = $match;
 		}

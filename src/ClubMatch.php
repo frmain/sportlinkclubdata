@@ -3,7 +3,7 @@ namespace SportlinkClubData;
 
 
 /**
- * @author Foeke
+ * Class holding data of a match of the club  (programma)
  *
  */
 class ClubMatch extends LeagueMatch
@@ -99,19 +99,4 @@ class ClubMatch extends LeagueMatch
 	 */
 	public $kleedkamerscheidsrechter;
 	
-	/**
-	 * Experimental: returns a code for the status of a match
-	 * 
-	 * @return integer code 0 is normal, other codes means special condition
-	 */
-	public function getStatuscode() {
-        switch ($this->status) {
-            case "Te spelen": $val = 0; break;
-            case "Afgelast door bond": $val = 1; break;
-            case "Afgelast door vereniging": $val = 1; break;
-            // case :
-            default: $val = 0; break;
-        }
-        return $val;
-    }
 }
