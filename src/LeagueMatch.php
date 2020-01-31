@@ -110,7 +110,7 @@ class LeagueMatch extends ClubDataItem
 	 * @return Match match details
 	 */
 	
-	public function getMatch()
+	public function getMatchDetail()
 	{
 		if ($this->match) {
 			return $this->match;

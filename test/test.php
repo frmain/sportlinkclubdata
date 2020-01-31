@@ -33,33 +33,30 @@ foreach ($sportlink->getLeagues() as $league) {
 		}
 	}
 }
-*/
 
 $team = new Team($sportlink, 133473, -1);
 
 echo $team->teamnaam, "-", $team->geslacht,"-", $team->categorie, "<br/>";
 
-/*
-$match = new Match($sportlink, 10769519);
+
+$match = new Match($sportlink, 14135473);
 echo "Match: ", $match->wedstijdnummerintern, "-", $match->wedstrijddatum->format('d-M-Y'),"-", $match->thuisteam, "-", $match->uitteam, 
 		"-", $match->thuisscore,":", $match->uitscore, "<br/>";
 echo "> Facilities:", $match->getFacilities()->naam, $match->getFacilities()->plaats, "<br/>";
+
+
 echo "> Uitteam: ", $match->getAwayTeamClub()->code,"-clubnaam: ", $match->getAwayTeamClub()->naam,"-site: ", $match->getAwayTeamClub()->website, 
 		" - perc gewonnen: ",$match->getStatisticsAwayTeam()->percentagegewonnen, "<br/>";
 echo "> Thuisteam: ", $match->getHomeTeamClub()->code,"-clubnaam: ", $match->getHomeTeamClub()->naam,"-site: ", $match->getHomeTeamClub()->website, 
 		" - perc gewonnen: ", $match->getStatisticsHomeTeam()->percentagegewonnen, "<br/>";
-foreach ($match->getOfficials()->getOfficials() as $official) {
-	echo "> Officials: ",$official->relatiecode, "-", $official->officialnaam, "-", $official->officialomschrijving,"<br/>";
-}
-echo "> Officials club: ", $match->getOfficials()->verenigingsscheidsrechtercode, "-", $match->getOfficials()->vereningsscheidsrechter, "-", $match->getOfficials()->overigeofficialcode,
-		"-",$match->getOfficials()->overigeofficial,  "<br/>";
+
 foreach ($match->getPlayersHomeTeam() as $player) {
 	echo "> Match player: ", $player->relatiecode, " - ", $player->naam, " - ", $player->functie, " - ", $player->rol, " - ", $player->email, "<br/>";
 	if (isset($player->foto)) {
 		echo '<div><img src="data:image/png;base64,', $player->foto, '" alt="Foto" /></div>';
 	}
 }
-
+/*
 foreach ($team->getPlayers(true) as $player) {
     echo "> Team player: ", $player->relatiecode, " - ", $player->naam, " - ", $player->functie, " - ", $player->rol, " - ", $player->email, " - Private:", $player->private, "<br/>";
 	if (isset($player->foto)) {
@@ -69,12 +66,24 @@ foreach ($team->getPlayers(true) as $player) {
 foreach ($match->getPastResults() as $pastresult) {
 	echo "> Match past result: ", $pastresult->seizoen, " - ", $pastresult->wedstrijd, " - ", $pastresult->datum,  " - ", $pastresult->uitslag, "<br/>";
 }
-
-foreach ($sportlink->getSchedule() as $match) {
+*/
+foreach ($sportlink->getSchedule(100) as $match) {
+	$matchdetail=$match->getMatchDetail();
 	echo "Clubschedule-match: ",  $match->wedstrijdcode, " - ", $match->wedstrijddatum->format('d-M-Y H:i'), " - ", $match->wedstrijd, " - ", $match->teamvolgorde, " - ", 
-		$match->scheidsrechters, "- sportveld - ", $match->getMatch()->getFacilities()->naam, "<br/>";
-}
+		$match->scheidsrechters, "- sportveld - ", $matchdetail->getFacilities()->naam, "<br/>";
 
+	foreach ($matchdetail->getMatchOfficials() as $official) {
+		echo "> KNVB Officials: ",$official->relatiecode, "-", $official->getOfficialPrivate()? "***":$official->officialnaam, "-", $official->officialomschrijving,"<br/>";
+	}
+	echo "> Officials club: ", $matchdetail->getClubOfficials()->verenigingsscheidsrechtercode, "-", ($matchdetail->getClubOfficials()->getRefereePrivate()? "***": $matchdetail->getClubOfficials()->verenigingsscheidsrechter), "-", $matchdetail->getClubOfficials()->overigeofficialcode,
+	"-",($matchdetail->getClubOfficials()->getOtherOfficialPrivate()? "***": $matchdetail->getClubOfficials()->overigeofficial),  "<br/>";
+/*
+ * 
+ 	echo "> Referee: ", $matchdetail->getReferee(), "- Scheidsrechter: ", ($match->getRefereePrivate()? "***": $match->scheidsrechter),  "<br/>";
+*/
+	echo "> Via match scheidsrechter: ", ($match->getRefereePrivate()? "WilNietZeggen": $match->getReferee()),"<br/>";
+}
+/*
  foreach ($sportlink->getOptionsSortorder() as $option) {
 	echo "Options sortorder: ", $option->sorteervolgorde, " - ", $option->omschrijving, "<br/>";
 }
@@ -133,7 +142,6 @@ foreach ($sportlink->getTeams() as $k=>$team) {
  foreach ($sportlink->getLeagues(true) as $poulecode=>$league) {
 	echo ">> League: ", $poulecode, ":", $league->teamcode, ":", $league->teamnaam, ":", $league->competitienaam, "<br/>";
 }
-*/
 
 foreach ($sportlink->getTeams() as $team) {
 	foreach ($team->getLeagues() as $league) {
@@ -186,3 +194,4 @@ foreach ($sportlink->getCommissions() as $commission) {
     }
     
 }
+*/

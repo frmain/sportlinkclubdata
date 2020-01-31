@@ -99,4 +99,27 @@ class ClubMatch extends LeagueMatch
 	 */
 	public $kleedkamerscheidsrechter;
 	
+	/**
+	 * function to determine if name of scheidsrechter is protected by user
+	 * @return boolean
+	 */
+	public function getRefereePrivate() {
+		return $this->getPrivate($this->getReferee());
+	}
+	
+	/**
+	 * Get the referee out of the list of officials
+	 * Sportlink offers 2 lists of officials, association officials (KNVB) and clubofficials based on these lists this function determines which person is (main) referee
+	 * @return string|null
+	 */
+	public function getReferee()
+	{
+		// first check the match's scheidsrechter, second query the match details when there is no scheidsrechter stated in this match
+		if ($this->scheidsrechter) {
+			return $this->scheidsrechter;
+		} else {
+			return $this->getMatchDetail()->getReferee();
+		}
+	}
+	
 }

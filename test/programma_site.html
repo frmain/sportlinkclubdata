@@ -15,7 +15,7 @@
 		function getData(){
 			var target = $("#target");
 			if (!target) return false;
-			link = "http://localhost/bruseboys36/index.php?option=com_clubdata&task=display&format=raw&view=clubschedule&layout=tv&homeaway=home&daysahead=60";
+			link = "http://localhost/bruseboys36/index.php?option=com_clubdata&task=display&format=raw&view=clubschedule&layout=tv_match&homeaway=home&daysahead=8";
 			if (!$.trim( $(target).html() ).length) {
 				$.ajax(
 							{url: link, 

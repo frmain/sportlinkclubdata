@@ -138,11 +138,21 @@ class Match extends ClubDataItem
 	 * @var string|null
 	 */
 	public $opmerkingen;
-
+	
 	/**
-	 * @var MatchOfficials
+	 * @var MatchClubOfficials
 	 */
-	protected $officials;
+	protected $clubofficials;
+	
+	/**
+	 * @var MatchOfficial[]
+	 */
+	protected $matchofficials;
+	
+	/**
+	 * @var string|null
+	 */
+	protected $mainreferee;
 	
 	/**
 	 * @var MatchDressingrooms
@@ -205,7 +215,7 @@ class Match extends ClubDataItem
 			$this->api->map($response['wedstrijdinformatie'], $this);
 		}
 		if (isset($response) && isset($response['officials'])) {
-			$this->officials = $this->api->map($response['officials'], new MatchOfficials($this->api, $this->wedstijdnummerintern));
+			$this->clubofficials = $this->api->map($response['officials'], new MatchClubOfficials($this->api));
 		}
 		if (isset($response) && isset($response['kleedkamers'])) {
 			$this->dressingrooms = $this->api->map($response['kleedkamers'], new MatchDressingrooms($this->api));
@@ -241,11 +251,11 @@ class Match extends ClubDataItem
 	
 	/**
 	 *
-	 * @return MatchOfficials
+	 * @return MatchClubOfficials
 	 */
-	public function getOfficials()
+	public function getClubOfficials()
 	{
-		return $this->officials;
+		return $this->clubofficials;
 	}
 	
 	/**
@@ -320,7 +330,7 @@ class Match extends ClubDataItem
 	 */
 	public function getPastResults()
 	{
-		// for efficiency, no need to request officials when already available
+		// for efficiency, no need to request PastResults when already available
 		if ($this->pastresults) {
 			return $this->pastresults;
 		}
@@ -339,5 +349,64 @@ class Match extends ClubDataItem
 		return  $this->pastresults;
 	}
 	
+	/**
+	 * Get the list of match officials, these are the officials appointed by the Bond
+	 *
+	 * @return MatchOfficial[]
+	 */
+	public function getMatchOfficials()
+	{
+		// for efficiency, no need to request officials when already available
+		if ($this->matchofficials) {
+			return $this->matchofficials;
+		}
+		
+		$params = array();
+		$params['wedstrijdcode'] = $this->wedstijdnummerintern;
+		$response = $this->api->request('wedstrijd-officials', $params);
+		
+		$this->matchofficials = array();
+		foreach($response as $item){
+			/** @var MatchOfficial $official */
+			$official = $this->api->map($item, new MatchOfficial($this->api));
+			$this->matchofficials[] = $official;
+		}
+		
+		return  $this->matchofficials;
+	}
+	
+	/**
+	 * Get the referee out of the list of officials
+	 * Sportlink offers 2 lists of officials, based on these lists this function determines which person is (main) referee
+	 * @return string|null
+	 */
+	public function getReferee()
+	{
+		// for efficiency, no need to request when already available
+		if ($this->mainreferee) {
+			return $this->mainreferee;
+		}
+
+		// MatchOfficials are assigned to the match by the association
+		$ref_funcs_filter = array("Scheidsrechter", "Spelbegeleider", "Clubscheidsrechter");
+		foreach ($this->getMatchOfficials() as $official) {
+			if (in_array($official->officialomschrijving, $ref_funcs_filter)) {
+				$this->mainreferee = $official->officialnaam;
+				return $this->mainreferee;
+			}
+		}
+		
+		// ClubOfficials are assigned to the match by the club
+		$this->mainreferee = $this->getClubOfficials()->verenigingsscheidsrechter;
+		return  $this->mainreferee;
+	}
+
+	/**
+	 * Is the persons name made private (GDPR)? 
+	 * @return boolean
+	 */
+	public function getRefereePrivate() {
+		return $this->getPrivate($this->mainreferee);
+	}
 	
 }

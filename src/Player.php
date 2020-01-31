@@ -65,10 +65,18 @@ class Player extends ClubDataItem
 	public $foto;
 	
 	/**
+	 * @deprecated
 	 * boolean $private calculated field when naam=="Afgeschermd"
 	 * @var boolean|null
 	 */
 	public $private;
 	
-
+	/**
+	 * function to determine if name of player is protected by user
+	 * @return boolean
+	 */
+	public function getPlayerPrivate() {
+		return $this->getPrivate($this->naam);
+	}
+	
 }

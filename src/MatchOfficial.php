@@ -24,4 +24,12 @@ class MatchOfficial extends ClubDataItem
 	 */
 	public $relatiecode;
 	
+	/**
+	 * function to determine if name of player is protected by user
+	 * @return boolean
+	 */
+	public function getOfficialPrivate() {
+		return $this->getPrivate($this->officialnaam);
+	}
+	
 }
