@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d91729007c9368c133d8181aecbc391c",
+    "content-hash": "19440cba05250e848d1ef4bfda36dc51",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "eeac96d112cb0e836749566e82a61126809e8d38"
+                "reference": "399c0eaf9bd9b9992bf008b53c758a1f986080b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/eeac96d112cb0e836749566e82a61126809e8d38",
-                "reference": "eeac96d112cb0e836749566e82a61126809e8d38",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/399c0eaf9bd9b9992bf008b53c758a1f986080b4",
+                "reference": "399c0eaf9bd9b9992bf008b53c758a1f986080b4",
                 "shasum": ""
             },
             "require": {
@@ -129,7 +129,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-13T23:47:22+00:00"
+            "time": "2021-10-17T13:39:51+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -222,12 +222,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "089edd38f5b8abba6cb01567c2a8aaa47cec4c72"
+                "reference": "04896ddeb63173888238ff1e8bad58df650a9d90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/089edd38f5b8abba6cb01567c2a8aaa47cec4c72",
-                "reference": "089edd38f5b8abba6cb01567c2a8aaa47cec4c72",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/04896ddeb63173888238ff1e8bad58df650a9d90",
+                "reference": "04896ddeb63173888238ff1e8bad58df650a9d90",
                 "shasum": ""
             },
             "require": {
@@ -314,7 +314,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.1.0"
+                "source": "https://github.com/guzzle/psr7/tree/master"
             },
             "funding": [
                 {
@@ -330,7 +330,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-06T17:43:30+00:00"
+            "time": "2021-10-17T13:32:11+00:00"
         },
         {
             "name": "netresearch/jsonmapper",
