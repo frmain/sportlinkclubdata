@@ -41,6 +41,11 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
+	<buildpathentry kind="src" path="vendor/psr/http-factory/src">
+		<attributes>
+			<attribute name="composer" value="vendor"/>
+		</attributes>
+	</buildpathentry>
 	<buildpathentry kind="src" path="vendor/psr/http-message/src">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
@@ -51,12 +56,7 @@
 			<attribute name="composer" value="vendor"/>
 		</attributes>
 	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/symfony/polyfill-ctype">
-		<attributes>
-			<attribute name="composer" value="vendor"/>
-		</attributes>
-	</buildpathentry>
-	<buildpathentry kind="src" path="vendor/symfony/yaml">
+	<buildpathentry kind="src" path="vendor/symfony/deprecation-contracts">
 		<attributes>
 			<attribute name="composer" value="vendor"/>
 		</attributes>

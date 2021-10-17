@@ -14,9 +14,9 @@
 	"version" : "0.0.2",
 	"license" : "MIT",
 	"require" : {
-		"php" : ">=5.4",
-		"guzzlehttp/guzzle" : ">6.2.0",
-		"netresearch/jsonmapper" : "~1.0.0"
+		"php" : ">=7.0",
+		"guzzlehttp/guzzle" : "~7.3",
+		"netresearch/jsonmapper" : "~4.0"
 	},
 	"authors" : [{
 			"name" : "Foeke Roukema",
@@ -27,7 +27,7 @@
 	],
 	"minimum-stability" : "dev",
 	"require-dev" : {
-		"phing/phing" : "~2.16"
+		"phing/phing" : "~2"
 	},
 	"support" : {
 		"email" : "info@bruseboys.nl"

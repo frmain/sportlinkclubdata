@@ -135,5 +135,13 @@ class LeagueMatch extends ClubDataItem
 	    }
 	    return $val;
 	}
+
+	public function isHomeMatch() {
+		return ($this->thuisteamclubrelatiecode == $this->api->getClub()->clubcode);
+	}
+
+	public function isAwayMatch() {
+		return ($this->uitteamclubrelatiecode == $this->api->getClub()->clubcode);
+	}
 	
 }
