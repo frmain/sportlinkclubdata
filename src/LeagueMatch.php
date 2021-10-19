@@ -100,24 +100,26 @@ class LeagueMatch extends ClubDataItem
 	public $uitslag;
 	
 	/**
-	 * @var Match
+	 * @var MatchDetail
+	 * 
+	 * PHP8: changed $match to $amatch, as match is a reserved keyword
 	 */
-	protected $match;
+	protected $amatch;
 	
 	/**
 	 * Get the match details of a league match
 	 *
-	 * @return Match match details
+	 * @return MatchDetail match details
 	 */
 	
 	public function getMatchDetail()
 	{
-		if ($this->match) {
-			return $this->match;
+		if ($this->amatch) {
+			return $this->amatch;
 		}
 	
-		$this->match = new Match($this->api, $this->wedstrijdcode);
-		return $this->match;
+		$this->amatch = new MatchDetail($this->api, $this->wedstrijdcode);
+		return $this->amatch;
 	}
 	
 	/**

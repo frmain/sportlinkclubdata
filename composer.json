@@ -6,12 +6,12 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"Bruseboys\\SportlinkClubData\\" : "src"
+			"SportlinkClubData\\" : "src"
 		}
 	},
 	"name" : "bruseboys/sportlinkclubdata",
 	"description" : "Wrapper API for Sportlink Club.Data",
-	"version" : "0.0.3",
+	"version" : "0.1.0",
 	"license" : "MIT",
 	"require" : {
 		"php" : ">=7.0",

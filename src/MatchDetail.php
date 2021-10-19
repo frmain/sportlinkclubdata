@@ -7,7 +7,7 @@ namespace SportlinkClubData;
  * 
  *
  */
-class Match extends ClubDataItem
+class MatchDetail extends ClubDataItem
 {
 	/**
 	 * @var integer

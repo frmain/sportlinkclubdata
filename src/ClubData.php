@@ -263,9 +263,9 @@ class ClubData
 		/** @var ClubMatch[] $matches */
 		$matches = array();
 		foreach($response as $item){
-			/** @var ClubMatch $match */
-			$match = $this->map($item, new ClubMatch($this));
-			$matches[$match->wedstrijdcode] = $match;
+			/** @var ClubMatch $clubmatch */
+			$clubmatch = $this->map($item, new ClubMatch($this));
+			$matches[$clubmatch->wedstrijdcode] = $clubmatch;
 		}
 	
 		return  $matches;
@@ -295,9 +295,9 @@ class ClubData
 		/** @var ClubMatchCancellation[] $matches */
 		$matches = array();
 		foreach($response as $item){
-			/** @var ClubMatchCancellation $match */
-			$match = $this->map($item, new ClubMatchCancellation($this));
-			$matches[$match->wedstrijdcode] = $match;
+			/** @var ClubMatchCancellation $clubmatch */
+			$clubmatch = $this->map($item, new ClubMatchCancellation($this));
+			$matches[$clubmatch->wedstrijdcode] = $clubmatch;
 		}
 	
 		return  $matches;
@@ -339,9 +339,9 @@ class ClubData
 			// Convert "Ja"/"Nee" to true/false
 			$item['verenigingswedstrijd'] = ($item['verenigingswedstrijd'] == "Ja");
 			
-			/** @var ClubMatchResult $match */
-			$match = $this->map($item, new ClubMatchResult($this));
-			$matches[$match->wedstrijdcode] = $match;
+			/** @var ClubMatchResult $clubmatch */
+			$clubmatch = $this->map($item, new ClubMatchResult($this));
+			$matches[$clubmatch->wedstrijdcode] = $clubmatch;
 		}
 	
 		return  $matches;

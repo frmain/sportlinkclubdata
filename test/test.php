@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
+
 use SportlinkClubData\ClubData;
 use SportlinkClubData\Team;
 use SportlinkClubData\Match;

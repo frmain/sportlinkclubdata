@@ -166,9 +166,9 @@ class League extends ClubDataItem
 		$matches = array();
 		foreach($response as $item){
 			$item['eigenteam'] = ($item['eigenteam'] == "true");
-			/** @var LeagueMatch $match */
-			$match = $this->api->map($item, new LeagueMatch($this->api));
-			$matches[$match->wedstrijdcode] = $match;
+			/** @var LeagueMatch $leaguematch */
+			$leaguematch = $this->api->map($item, new LeagueMatch($this->api));
+			$matches[$leaguematch->wedstrijdcode] = $leaguematch;
 		}
 		
 		return  $matches;
@@ -194,9 +194,9 @@ class League extends ClubDataItem
 		$matches = array();
 		foreach($response as $item){
 			$item['eigenteam'] = ($item['eigenteam'] == "true");
-			/** @var LeagueMatch $match */
-			$match = $this->api->map($item, new LeagueMatch($this->api));
-			$matches[$match->wedstrijdcode] = $match;
+			/** @var LeagueMatch $leaguematch */
+			$leaguematch = $this->api->map($item, new LeagueMatch($this->api));
+			$matches[$leaguematch->wedstrijdcode] = $leaguematch;
 		}
 	
 		return  $matches;
