@@ -9,32 +9,32 @@ namespace SportlinkClubData;
 class ClubAddress extends ClubDataItem
 {
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $straatnaam;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $huisnummer;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $nummertoevoeging;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $postcode;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $plaats;
 	
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	public $route;
 	

@@ -25,10 +25,10 @@ class MatchStatistics extends ClubDataItem
 	protected $uitteam;
 
 	/**
-	 * @param ClubData $api
+	 * @param DataManager $api
 	 * @param integer $wedstrijdcode
 	 */
-	public function __construct(ClubData $api, $wedstrijdcode)
+	public function __construct(DataManager $api, $wedstrijdcode)
 	{
 		parent::__construct($api);
 		$this->wedstrijdcode=$wedstrijdcode;

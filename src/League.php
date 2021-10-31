@@ -111,10 +111,10 @@ class League extends ClubDataItem
 	 * If this class is instantiated with a $leagueid, then other member variables than $leagueid are not filled
 	 * Sportlink does not provide a function to populate one league  
  	 * 
-	 * @param ClubData $api
+	 * @param DataManager $api
 	 * @param integer $leagueid
 	 */
-	public function __construct(ClubData $api, $leagueid=null)
+	public function __construct(DataManager $api, $leagueid=null)
 	{
 		$this->api = $api;
 		$this->poulecode = $leagueid;

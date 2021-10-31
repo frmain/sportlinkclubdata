@@ -155,9 +155,9 @@ class Club extends ClubDataItem
 	private $visitingAddress;
 	
 	/**
-	 * @param ClubData $api
+	 * @param DataManager $api
 	 */
-	public function __construct(ClubData $api)
+	public function __construct(DataManager $api)
 	{
 		parent::__construct($api);
 		$this->populate();

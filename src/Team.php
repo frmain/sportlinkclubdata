@@ -153,11 +153,11 @@ class Team extends ClubDataItem
 	protected $withphoto = false;
 	
 	/**
-	 * @param ClubData $api
+	 * @param DataManager $api
 	 * @param integer $teamcode
 	 * @param integer $localteamcode
 	 */
-	public function __construct(ClubData $api, $teamcode, $localteamcode=-1, $extradata=array(), $fulldata=false)
+	public function __construct(DataManager $api, $teamcode, $localteamcode=-1, $extradata=array(), $fulldata=false)
 	{
 		parent::__construct($api);
 		$this->teamcode=$teamcode;
@@ -222,11 +222,12 @@ class Team extends ClubDataItem
 		$response = $this->api->request('teampoulelijst', $params);
 	
 		/**
-		 * Make use of clubdata->getLeagues to get full league data
+		 * Make use of ClubManager->getLeagues to get full league data
 		 *
 		 * @var League[][] $club_lgs 
 		 */
-		$club_lgs = $this->api->getLeagues($regularonly, $allperiods);
+		$clubmgr = new ClubManager($this->api);
+		$club_lgs = $clubmgr->getLeagues($regularonly, $allperiods);
 		
 		$this->leagues = array();
 		foreach($response as $item){

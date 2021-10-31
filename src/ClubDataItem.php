@@ -8,16 +8,18 @@ namespace SportlinkClubData;
  */
 class ClubDataItem
 {
-	/** @var ClubData */
+	/** @var DataManager */
 	protected $api;
 
+
 	/**
-	 * @param ClubData $api
+	 * @param DataManager $api   sportlink api
 	 */
-	public function __construct(ClubData $api)
+	public function __construct(DataManager $api)
 	{
 		$this->api = $api;
 	}
+	
 	
 	/**
 	 * function to determine if name of a person is protected by user (GDPR)

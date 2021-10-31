@@ -190,10 +190,10 @@ class MatchDetail extends ClubDataItem
 	protected $pastresults;
 	
 	/**
-	 * @param ClubData $api
+	 * @param DataManager $api
 	 * @param integer $wedstrijdcode
 	 */
-	public function __construct(ClubData $api, $wedstrijdcode)
+	public function __construct(DataManager $api, $wedstrijdcode)
 	{
 		parent::__construct($api);
 		$this->wedstrijdnummerintern=$wedstrijdcode;

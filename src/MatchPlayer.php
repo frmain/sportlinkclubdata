@@ -14,7 +14,11 @@ class MatchPlayer extends Player
 	 */
 	private $wedstrijdcode;
 
-	public function __construct(ClubData $api, $wedstrijdcode)
+	/**
+	 * @param DataManager $api
+	 * @param integer $wedstrijdcode
+	 */
+	public function __construct(DataManager $api, $wedstrijdcode)
 	{
 		parent::__construct($api);
 		$this->wedstrijdcode=$wedstrijdcode;

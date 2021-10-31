@@ -33,14 +33,6 @@ class MatchClubOfficials extends ClubDataItem
 	public $overigeofficial;
 
 	/**
-	 * @param ClubData $api
-	 */
-	public function __construct(ClubData $api)
-	{
-		parent::__construct($api);
-	}
-	
-	/**
 	 * function to determine if name of verenigingsscheidsrechter is protected by user
 	 * @return boolean
 	 */
