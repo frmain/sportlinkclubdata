@@ -58,7 +58,7 @@ class Club extends ClubDataItem
 	public $informatie;
 	
 	/**
-	 * @var \DateTime
+	 * @var string
 	 */
 	public $oprichtingsdatum;
 

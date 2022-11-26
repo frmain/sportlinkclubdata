@@ -13,32 +13,32 @@ use SportlinkClubData\MatchDetail;
 /* ***INITIALIZE MANAGERS*** */
 $key = 'JOKcIznJ9m';
 $key2 = "dtEQ1RQ4jc";
-$datamanager = new DataManager($key);
+//$datamanager = new DataManager($key);
+//$clubmanager = new ClubManager($datamanager); 
 
-$clubmanager = new ClubManager($datamanager); 
 $clubsmanager = new ClubsManager([$key, $key2]);
-
+$clubmanager = $clubsmanager->getClubManager(0);
 
 /* ***GET CLUB VIA CLUBMANAGER*** */
 
-/*
+
 $club = $clubmanager->getClub();
-echo $club->clubnaam, $club->thuisbroekkleur, $club->oprichtingsdatum->format('d-M-Y'), $club->getVisitingAddress()->plaats.'<br/>';
+echo $club->clubnaam, $club->thuisbroekkleur, $club->oprichtingsdatum, $club->getVisitingAddress()->plaats.'<br/>';
 
 # ***GET LEAGUES VIA CLUBMANAGER*** 
 foreach ($clubmanager->getLeagues() as $t) {
 	foreach ($t as $league) {
 		echo "** Competitie **";
-		echo "> League: " . $league->teamcode, "-", $league->teamnaam, "-", $league->competitienaam, "<br/>";
+		echo "> League: ", $league->client_id, "-", $league->teamcode, "-", $league->teamnaam, "-", $league->competitienaam, "<br/>";
 		$team = $league->getTeam();
-		echo ">> Team: " . $team->teamnaam, "-", $team->geslacht,"-", $team->categorie, "<br/>";
+		echo ">> Team: ", "-", $team->teamnaam, "-", $team->geslacht,"-", $team->categorie, "<br/>";
 		$leagueresult = $league->getMatchResults(true, 50, -10);
 		foreach ($leagueresult as $leaguematch) {
-			echo ">>> Uitslag: ", " - ", $leaguematch->wedstrijdcode, " - ", $leaguematch->wedstrijd, "-", $leaguematch->wedstrijddatum->format('d-M-Y'), "- eindstand: ", $leaguematch->uitslag, "<br/>";
+			echo ">>> Uitslag: ", $leaguematch->client_id, " - ", $leaguematch->wedstrijdcode, " - ", $leaguematch->wedstrijd, "-", $leaguematch->wedstrijddatum->format('d-M-Y'), "- eindstand: ", $leaguematch->uitslag, "<br/>";
 		}
 		$leagueschedule = $league->getMatchSchedule(true, 10);
 		foreach ($leagueschedule as $leaguematch) {
-			echo ">>> Programma: ", " - ", $leaguematch->wedstrijdcode, " - ", $leaguematch->wedstrijd, "-", $leaguematch->wedstrijddatum->format('d-M-Y'), $leaguematch->getMatchDetail()->getReferee(), "<br/>";
+			echo ">>> Programma: ", $leaguematch->client_id, " - ", $leaguematch->wedstrijdcode, " - ", $leaguematch->wedstrijd, "-", $leaguematch->wedstrijddatum->format('d-M-Y'), $leaguematch->getMatchDetail()->getReferee(), "<br/>";
 		}
 		foreach ($league->getRanking() as $position) {
 			echo ">>>> Stand: ", $position->positie, " ", $position->teamnaam, " ", $position->gespeeldewedstrijden, " ", $position->doelpuntenvoor, " ", $position->doelpuntentegen, " ", $position->punten, " ", $position->eigenteam, "<br/>";
@@ -52,7 +52,7 @@ foreach ($clubmanager->getLeagues() as $t) {
 	}
 }
 
-
+/*
 $team = new Team($datamanager, 133473, -1);
 
 echo $team->teamnaam, "-", $team->geslacht,"-", $team->categorie, "<br/>";
@@ -214,7 +214,7 @@ foreach ($clubmanager->getCommissions() as $commission) {
 
 $clubs = $clubsmanager->getClubs();
 foreach ($clubs as $club) {
-	echo $club->clubnaam, $club->thuisbroekkleur, $club->oprichtingsdatum->format('d-M-Y'), $club->getVisitingAddress()->plaats.'<br/>';
+	echo $club->client_id, " - ", $club->clubnaam, $club->thuisbroekkleur, $club->oprichtingsdatum, $club->getVisitingAddress()->plaats.'<br/>';
 }
 
 /*
@@ -266,6 +266,12 @@ foreach ($clubsmanager->getSchedule(100) as $amatch) {
 }
 */
 foreach ($clubsmanager->getResults(50) as $amatch) {
-	echo "Clubresults-match: ",  $amatch->wedstrijdcode, " - ", $amatch->wedstrijddatum->format('d-M-Y H:i'), " - ", $amatch->wedstrijd, " - ", " - ",
+	echo "Clubresults-match: ",  $amatch->client_id, " - ", $amatch->wedstrijdcode, " - ", $amatch->wedstrijddatum->format('d-M-Y H:i'), " - ", $amatch->wedstrijd, " - ", " - ",
 	$amatch->uitslag, "<br/>";
 }
+
+foreach ($clubsmanager->getTeams() as $team) {
+	echo ">> Teams club: ", $team->teamcode, ":", $team->teamnaam, ":", $team->teamnaam_full, ":", $team->leeftijdscategorie, ":", $team->isPopulated()?"details present!":"niet gepopuleerd", ":", $team->categorie, "<br/>";
+	echo "<img src=\"data:image/png;base64," . $team->populate()->teamfoto . "\" />";
+}
+

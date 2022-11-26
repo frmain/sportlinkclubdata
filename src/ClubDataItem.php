@@ -11,7 +11,7 @@ class ClubDataItem
 	/** @var DataManager */
 	protected $api;
 
-
+	
 	/**
 	 * @param DataManager $api   sportlink api
 	 */
@@ -20,6 +20,12 @@ class ClubDataItem
 		$this->api = $api;
 	}
 	
+	/**
+	 * @return DataManager
+	 */
+	public function getDataManager() {
+		return $this->api;
+	}
 	
 	/**
 	 * function to determine if name of a person is protected by user (GDPR)

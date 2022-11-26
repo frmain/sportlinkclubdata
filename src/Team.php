@@ -169,27 +169,30 @@ class Team extends ClubDataItem
 		if (key_exists("geslacht", $extradata)) $this->geslacht=$extradata["geslacht"];
 		if (key_exists("leeftijdscategorie", $extradata)) $this->leeftijdscategorie=$extradata["leeftijdscategorie"];
 		if ($fulldata)
-		  $this->populate();
+			$this->populate();
 	}
 
 	
 	/**
 	 * Populate the additional fields with data 
 	 * 
-	 * @return void
+	 * @return Team
 	 */
 	public function populate()
 	{
-	    $params = array();
-	    $params['teamcode'] = $this->teamcode;
-		$params['lokaleteamcode'] = $this->lokaleteamcode;
+		if (!$this->fulldata){
+			$params = array();
+			$params['teamcode'] = $this->teamcode;
+			$params['lokaleteamcode'] = $this->lokaleteamcode;
+			
+			$response = $this->api->request('team-gegevens', $params);
 		
-		$response = $this->api->request('team-gegevens', $params);
-	
-		if (isset($response) && isset($response["team"])) {
-			$this->api->map($response['team'], $this);
+			if (isset($response) && isset($response["team"])) {
+				$this->api->map($response['team'], $this);
+			}
+			$this->fulldata=true;
 		}
-		$this->fulldata=true;
+		return $this;
 	}
 	
 	/**

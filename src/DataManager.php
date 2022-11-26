@@ -13,17 +13,21 @@ use SportlinkClubData\HttpClient\HttpClientInterface;
  */
 class DataManager
 {
-	/** @var string $key	clientID sportlink  */
-	protected $key;
-
 	/** @var HttpClientInterface $client  */
 	protected $client;
 	
 	/** @var JsonMapper $mapper */
 	protected $mapper;
 	
-	public function __construct($key, HttpClientInterface $client = null)
+	/** @var string $key	clientID sportlink  */
+	protected $key;
+	
+	/** @var ClubsManager $clubsmanager	owner of the DataManager object */
+	protected $clubsmanager;
+	
+	public function __construct(ClubsManager $owner, $key, HttpClientInterface $client = null)
 	{
+		$this->clubsmanager = $owner;
 		$this->key = $key;
 		$this->client = $client ?: new HttpClient();
 		$this->mapper = new JsonMapper();
@@ -44,6 +48,7 @@ class DataManager
 			$parameters['client_id'] = $key ?:$this->key;
 			$milliseconds = round(microtime(true) * 1000);
 			
+			# retrieve the data
 			$data = $this->client->get($path, $parameters);
 			
 			// logging
@@ -81,10 +86,33 @@ class DataManager
 	{
 		try {
 			$res = $this->mapper->map((object) $json, $object);
+			# add the client id to each result
+			$res->client_id = $this->key;
 		} catch (\JsonMapper_Exception $e) {
 			throw new InvalidResponseException('Field mapping error: ' . $e->getMessage(), 0);
 		}
 		return $res;
 	}
+	
+	/**
+	 * Get the client id key
+	 *
+	 * @return string
+	 */
+	public function getKey()
+	{
+		return $this->key;
+	}
+	
+	/**
+	 * Get the owner of this object
+	 *
+	 * @return ClubsManager
+	 */
+	public function getClubsManager()
+	{
+		return $this->clubsmanager;
+	}
+	
 	
 }

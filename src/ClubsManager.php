@@ -53,25 +53,91 @@ class ClubsManager
 	public function __construct($keys = [])
 	{
 		$this->keys = $keys;
+		$index = 0;
 		foreach($this->keys as $key) {
-			$datamanager = new DataManager($key);
-			$this->clubmanagers[] = new ClubManager($datamanager);
+			$datamanager = new DataManager($this, $key);
+			$clubmanager = new ClubManager($datamanager);
+			$clubmanager->index = $index;
+			$this->clubmanagers[] = $clubmanager;
+			$index++;
 		}
 	}
 	
 	
 	/**
-	 * Get static data of the club
+	 * Get the ClubManagers contained in the ClubsManager
 	 *
-	 * @return Club
+	 * @return ClubManager[]
+	 */
+	public function getClubManagers()
+	{
+		return $this->clubmanagers;
+	}
+	
+	/**
+	 * Find the index of clientid in keys array (in order to hide the clientid)
+	 *
+	 * @return integer
+	 */
+	public function getClubIndex($key)
+	{
+		
+		return array_search($key, $this->keys);
+	}
+	
+	/**
+	 * Find the ClubManager belonging to the clubindex
+	 *
+	 * @return ClubManager
+	 */
+	public function getClubManager($clubindex)
+	{
+		if (array_key_exists($clubindex, $this->clubmanagers)) {
+			return $this->clubmanagers[$clubindex];
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Get the clubs 
+	 *
+	 * @return Club[]
 	 */
 	public function getClubs()
 	{
 		foreach ($this->clubmanagers as $clubmanager) {
-			$clubs[] = $clubmanager->getClub();
+			$club = $clubmanager->getClub();
+			$club->clubindex = $clubmanager->index;
+			$clubs[] = $club;
 		}
 			
 		return $clubs;
+	}
+	
+	/**
+	 * Get main club
+	 *
+	 * @return Club
+	 */
+	public function getMainClub()
+	{
+		return $this->getClubs()[0];
+	}
+	
+	
+	/**
+	 * Get the clubcodes (of all clubs belonging to main club)
+	 *
+	 * @return array string clubcodes
+	 */
+	public function getClubcodes() 
+	{
+		$clubcodes = array();
+		foreach ($this->getClubs() as $club) {
+			$clubcodes[] = $club->clubcode;
+		}
+		return $clubcodes;
 	}
 	
 	/**
@@ -85,7 +151,7 @@ class ClubsManager
 	{
 		$leagues = [];
 		foreach ($this->clubmanagers as $clubmanager) {
-			$leagues = array_merge($leagues, $clubmanager->getLeagues($regularonly, $allperiods));
+			$leagues = $leagues + $clubmanager->getLeagues($regularonly, $allperiods);
 		}
 		
 		return $leagues;
@@ -102,10 +168,10 @@ class ClubsManager
 	{
 		$teams = [];
 		foreach ($this->clubmanagers as $clubmanager) {
-			$teams = array_merge($teams, $clubmanager->getTeams($full));
+			$teams = $teams + $clubmanager->getTeams($full);
 		}
 		
-		return  $teams;
+		return $teams;
 	}
 	
 	
@@ -116,6 +182,7 @@ class ClubsManager
 	 * @param integer $daysahead return only matches maximum x days ahead relative to $weekoffset (default: 30)
 	 * @param integer $weekoffset return matches from week y relative to current week (0 = this week, 1 = next week, 2 = ...)  (default: 0) 
 	 * @param integer $teamcode return only matches from team
+	 * @param integer $localteamcode return only matches from localteam
 	 * @param boolean $onlyownteam return only matches from own League
 	 * @param string $sortorder (use options_sortorder)
 	 * @param integer $rowcount max number of rows to return (default: 100) 
@@ -127,14 +194,14 @@ class ClubsManager
 	 * @param string $agecategory (use options_agecategory)
 	 * @return ClubMatch[]
 	 */
-	public function getSchedule($daysahead=null, $weekoffset=null, $teamcode=null, $onlyownteam=false, $rowcount=null, $home=true, $away=true, $matchtype=null, 
+	public function getSchedule($daysahead=null, $weekoffset=null, $teamcode=null, $localteamcode=null, $onlyownteam=false, $rowcount=null, $home=true, $away=true, $matchtype=null, 
 			$leaguetype=null, $daytype=null, $agecategory=null)
 	{
 
 		$matches = [];
 		foreach ($this->clubmanagers as $clubmanager) {
-			$matches = array_merge($matches, $clubmanager->getSchedule($daysahead, $weekoffset, $teamcode, $onlyownteam, null, $rowcount, $home, $away, $matchtype,
-				$leaguetype, $daytype, $agecategory));
+			$matches = $matches + $clubmanager->getSchedule($daysahead, $weekoffset, $teamcode, $onlyownteam, null, $rowcount, $home, $away, $matchtype,
+				$leaguetype, $daytype, $agecategory);
 		}
 		
 		array_multisort(array_column($matches, 'wedstrijddatum'), SORT_ASC,	$matches);
@@ -155,7 +222,7 @@ class ClubsManager
 	{
 		$matches = [];
 		foreach ($this->clubmanagers as $clubmanager) {
-			$matches = array_merge($matches, $clubmanager->getCancellations($daysahead, $weekoffset, null, $rowcount));
+			$matches = $matches + $clubmanager->getCancellations($daysahead, $weekoffset, null, $rowcount);
 		}
 		
 		array_multisort(array_column($matches, 'wedstrijddatum'), SORT_ASC, $matches);
@@ -181,8 +248,8 @@ class ClubsManager
 	{
 		$matches = [];
 		foreach ($this->clubmanagers as $clubmanager) {
-			$matches = array_merge($matches, $clubmanager->getResults($daysahead, $weekoffset, $teamcode, $localteamcode, $onlyownteam, null, $rowcount,
-				$matchtype, $agecategory));
+			$matches = $matches + $clubmanager->getResults($daysahead, $weekoffset, $teamcode, $localteamcode, $onlyownteam, null, $rowcount,
+				$matchtype, $agecategory);
 		}
 		
 		array_multisort(array_column($matches, 'wedstrijddatum'), SORT_DESC, 

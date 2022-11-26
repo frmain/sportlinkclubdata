@@ -139,11 +139,11 @@ class LeagueMatch extends ClubDataItem
 	}
 
 	public function isHomeMatch() {
-		return ($this->thuisteamclubrelatiecode == $this->api->getClub()->clubcode);
+		return (in_array($this->thuisteamclubrelatiecode, $this->api->getClubsManager()->getClubcodes()));
 	}
 
 	public function isAwayMatch() {
-		return ($this->uitteamclubrelatiecode == $this->api->getClub()->clubcode);
+		return (in_array($this->uitteamclubrelatiecode, $this->api->getClubsManager()->getClubcodes()));
 	}
 	
 }

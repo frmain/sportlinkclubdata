@@ -78,6 +78,7 @@ class ClubManager extends ClubDataItem
 		foreach($response as $item){
 			/** @var League $league */
 			$league = $this->api->map($item, new League($this->api));
+			$league->clubindex = $this->api->getClubsManager()->getClubIndex($league->api->getKey());
 			if (!(empty($league->teamcode) || empty($league->poulecode))) {		# some poules are empty for some reason
 				$this->leagues[$league->teamcode][$league->poulecode] = $league;
 			}
@@ -97,14 +98,15 @@ class ClubManager extends ClubDataItem
 	 */
 	public function getTeams($full=false)
 	{
-	    if ($this->teams && $this->teamfulldata == $full) {
+		if ($this->teams && $this->teamfulldata == $full) {
 			return  $this->teams;
 		}
 		$leagues = $this->getLeagues($this->regularteamsonly, $this->allperiods);
 		$this->teams = array();
 		foreach($leagues as $teamcode=>$teamleagues) {
-		    $teamleague = reset($teamleagues);
-		    $this->teams[$teamcode] = $teamleague->getTeam($full); // extract team of first element
+			$teamleague = reset($teamleagues);
+			$this->teams[$teamcode] = $teamleague->getTeam($full); // extract team of first element
+			$this->teams[$teamcode]->clubindex = $this->api->getClubsManager()->getClubIndex($this->teams[$teamcode]->api->getKey());
 		}
 		$this->teamfulldata = $full;
 		return  $this->teams;
@@ -199,7 +201,7 @@ class ClubManager extends ClubDataItem
 	 * @param integer $daysahead return only matches maximum x days ahead relative to $weekoffset (default: 7)
 	 * @param integer $weekoffset return matches from week y relative to current week (0 = this week, 1 = next week, 2 = ...)  (default: -1)
 	 * @param integer $teamcode return only matches from team
-	 * @param integer $localteamcode return only matches from team
+	 * @param integer $localteamcode return only matches from localteam
 	 * @param boolean $onlyownteam return only matches from own League
 	 * @param string $sortorder (use options_sortorder)
 	 * @param integer $rowcount max number of rows to return (default: 100)
@@ -213,7 +215,7 @@ class ClubManager extends ClubDataItem
 	    if (isset($daysahead)) $params['aantaldagen'] = $daysahead;
 		if (isset($weekoffset)) $params['weekoffset'] = $weekoffset;
 		if (isset($teamcode)) $params['teamcode'] = $teamcode;
-		if (isset($localteamcode)) $params['lokaleteamcode'] = $teamcode;
+		if (isset($localteamcode)) $params['lokaleteamcode'] = $localteamcode;
 		$params['eigenwedstrijden'] = $onlyownteam ? 'JA' : 'NEE';
 		if (isset($sortorder)) $params['sorteervolgorde'] = $sortorder;
 		if (isset($rowcount)) $params['aantalregels'] = $rowcount;
